@@ -1,0 +1,25 @@
+{
+  "name": "duolingo.js",
+  "version": "1.0.0",
+  "description": "A simple node module to query the duolingo API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Autom3/duolingo.js.git"
+  },
+  "keywords": [
+    "duolingo"
+  ],
+  "author": "Autom3",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Autom3/duolingo.js/issues"
+  },
+  "homepage": "https://github.com/Autom3/duolingo.js#readme",
+  "dependencies": {
+    "request-promise-native": "^1.0.5"
+  }
+}
