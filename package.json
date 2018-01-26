@@ -19,7 +19,7 @@
     "url": "https://github.com/Autom3/duolingo.js/issues"
   },
   "homepage": "https://github.com/Autom3/duolingo.js#readme",
-  "peerDependencies": {
+  "dependencies": {
     "request-promise-native": "^1.0.5"
   }
 }
