@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Autom3/duolingo.js#readme",
   "dependencies": {
+    "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
   }
 }
