@@ -18,7 +18,7 @@ duo('HelpfulDuo')
         console.log(user.id);
     })
     .catch(function(error) {
-        console.err(error);
+        console.error(error);
     });
 ```
 
