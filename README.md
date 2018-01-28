@@ -13,7 +13,7 @@ npm install --save duolingo.js
 
 ``` js
 var duo = require('duolingo.js');
-duo.userByUsername('HelpfulDuo')
+duo('HelpfulDuo')
     .then(function(user) {
         console.log(user.id);
     })
@@ -21,3 +21,25 @@ duo.userByUsername('HelpfulDuo')
         console.err(error);
     });
 ```
+
+## Documentation
+
+### User
+
+user.id
+user.username
+user.duoname
+user.avatarURL
+
+### Language
+
+user.language.learningCode
+user.language.learningString
+user.language.level
+user.language.skillsLearned
+user.language.totalSkills
+
+### Streak
+
+user.streak.currentAmount
+user.streak.extendedToday
