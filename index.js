@@ -10,6 +10,16 @@ const achievementTranslation = {
     xp: 'overachiever',
     perfect: 'sharpshooter',
 };
+const achievementDisplay = {
+    streak: 'Wildfire',
+    completion: 'Champion',
+    spending: 'Big Spender',
+    time: 'Overtime',
+    social: 'Friendly',
+    gold_skills: 'Shiny',
+    xp: 'Overachiever',
+    perfect: 'Sharpshooter',
+};
 const baseUrl = 'https://www.duolingo.com';
 
 let userCache = {
@@ -88,6 +98,7 @@ function User(rawSmallUser, rawLargeUser) {
             count: achievement.count,
             tierCounts: achievement.tierCounts,
             name: achievement.name,
+            displayName: achievementDisplay[achievement.name],
             nextTierCount: achievement.tierCounts[achievement.tier - 1],
             maxedOut: achievement.count >= achievement.tierCounts[achievement.tierCounts.length - 1],
         };
