@@ -1,6 +1,9 @@
-var duo = require('./index.js');
+const duo = require('./index.js');
+
+let firstStartTime = new Date();
 duo('HelpfulDuo')
     .then(function(user) {
+        let firstEndTime = new Date();
         if (user.id === 98212660) {
             console.log('User id is correct');
         } else {
@@ -56,6 +59,25 @@ duo('HelpfulDuo')
         } else {
             console.log('User streak extendedToday is wrong: ' + user.streak.extendedToday);
         }
+        if (user.achievements.bigSpender.maxedOut === false) {
+            console.log('User achievements bigSpender maxedOut is correct');
+        } else {
+            console.log('User achievements bigSpender maxedOut is wrong: ' + user.achievements.bigSpender.maxedOut);
+        }
+        if (user.achievements.shiny.tier === 2) {
+            console.log('User achievements shiny tier is correct');
+        } else {
+            console.log('User achievements shiny tier is wrong: ' + user.achievements.shiny.tier);
+        }
+        let secondStartTime = new Date();
+        duo('HelpfulDuo').then(function(user) {
+            let secondEndTime = new Date();
+            let firstDelta = firstEndTime.getTime() - firstStartTime.getTime();
+            let secondDelta = secondEndTime.getTime() - secondStartTime.getTime();
+            console.log('Timing before cache: ' + firstDelta + 'ms');
+            console.log('Timing after cache: ' + secondDelta + 'ms');
+            console.log('Delta timgins check ' + (secondDelta < firstDelta ? 'passed' : 'failed'));
+        });
     })
     .catch(function(error) {
         console.error(error);
