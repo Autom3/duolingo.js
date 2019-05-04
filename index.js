@@ -50,6 +50,13 @@ function requestDuolingo(endpoint) {
     });
 }
 
+function arrayToObject(array, keyField) {
+    return array.reduce((obj, item) => {
+        obj[item[keyField]] = item;
+        return obj;
+    }, {});
+}
+
 function getSmallUser(id) {
     return requestDuolingo('/2017-06-30/users/' + id);
 }
@@ -60,14 +67,18 @@ function getLargeUser(username) {
 function User(rawSmallUser, rawLargeUser) {
     this._rawSmallUser = rawSmallUser;
     this._rawLargeUser = rawLargeUser;
-    
+
     this.id = rawLargeUser.id;
     this.username = rawLargeUser.username;
     this.duoname = this.username;
     this.avatarURL = 'https:' + rawLargeUser.avatar + '/xlarge';
     this.originalLanguage = rawSmallUser.fromLanguage;
     this.hasPlus = rawSmallUser.hasPlus;
-    
+
+    this.courses = arrayToObject(rawSmallUser.courses, 'id');
+    this.courseId = rawSmallUser.currentCourseId;
+    this.course = this.courses[this.courseId];
+
     this.language = {};
     this.language.learningCode = rawLargeUser['learning_language'];
     this.language.learningCodeUniversal = rawSmallUser.learningLanguage;
@@ -82,11 +93,12 @@ function User(rawSmallUser, rawLargeUser) {
     this.language.totalXP = this.language.learning.points;
     this.language.skillsLearned = this.language.learning['num_skills_learned'];
     this.language.totalSkills = this.language.learning.skills.length;
-    
+    this.language.crowns = this.course.crowns;
+
     this.streak = {};
     this.streak.currentAmount = this.language.learning.streak;
     this.streak.extendedToday = rawLargeUser['streak_extended_today'];
-    
+
     this.achievements = {};
     rawSmallUser['_achievements'].forEach(achievement => {
         let translated = achievementTranslation[achievement.name];
@@ -103,7 +115,7 @@ function User(rawSmallUser, rawLargeUser) {
             maxedOut: achievement.count >= achievement.tierCounts[achievement.tierCounts.length - 1],
         };
     });
-	
+
 	/*this.getName = function () {
 		return this.name;
 	};*/
@@ -118,7 +130,7 @@ module.exports = function (identification) {
     return new Promise((resolve, reject) => {
         let rawSmallUser = null;
         let rawLargeUser = null;
-    
+
         if (typeof(identification) === 'number') {
             getSmallUser(identification)
                 .then((rawSmallUser) => {
